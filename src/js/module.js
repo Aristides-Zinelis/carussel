@@ -41,7 +41,7 @@ var target = event ? event.target : window.event.srcElement;
 target.id==="left" ? sl-- : sl++;
 if(sl>3){sl=0};
 if(sl<0){sl=3};
-carussel.goToSlide(sl)
+carussel.goToSlide(sl);
 }
 
 
@@ -60,6 +60,7 @@ carussel.goToSlide(sl)
 }
 
  carussel.goToSlide = function(index){
+   sl = index;
   var ul = document.getElementById("list");
   var hndler = document.querySelectorAll(".handler-wrapper a");
   ul.style.left = (-(ul.offsetWidth / 12) * index*3) +"px";

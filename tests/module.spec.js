@@ -4,7 +4,7 @@ describe('module', function() {
 
   // inject the HTML fixture for the tests
   beforeEach(function() {
-    var fixture = "<div id='chevs-wrapper' class='chevs-wrapper'></div><div id='fixture' class='container'><ul id='list' class='image-list'></ul><ul id='handlers' class='handler-wrapper'></ul></div>";
+    var fixture = "<div id='fixture'><div id='chevs-wrapper' class='chevs-wrapper'></div><div  class='container'><ul id='list' class='image-list'></ul><ul id='handlers' class='handler-wrapper'></ul></div></div>";
     document.body.insertAdjacentHTML(
       'afterbegin',
       fixture);
@@ -52,14 +52,42 @@ describe('module', function() {
 
   });
 
-  it("second handler should call goToSlide with 1", function(){
-    carussel.addHandlers();
-      spyOn(carussel, 'goToSlide');
-      var handlerList = document.querySelectorAll(".handler-wrapper li a");
-      handlerList[1].click();
-      expect(carussel.goToSlide).toHaveBeenCalledWith(1);
+  it("addChevrons should should add 2 chevron handlers on DOM", function(){
+      carussel.addChevrons();
+      var handlerList = document.querySelectorAll(".fa");
+      expect(handlerList.length).toEqual(2);
+    });
 
-  });
+    it("second handler should call goToSlide with 1", function(){
+      carussel.addHandlers();
+        spyOn(carussel, 'goToSlide');
+        var handlerList = document.querySelectorAll(".handler-wrapper li a");
+        handlerList[1].click();
+        expect(carussel.goToSlide).toHaveBeenCalledWith(1);
+
+    });
+
+  it("chevron right should call goToSlide", function(){
+      carussel.addChevrons();
+        spyOn(carussel, 'nextSlide');
+        var handler = document.getElementById("right").click();
+        expect(carussel.nextSlide).toHaveBeenCalled();
+    });
+
+    it("nextSlide with 'left' should call goToSlide with 3", function(){
+          spyOn(carussel, 'goToSlide');
+          var event = {};
+          event.target = {};
+          event.target.id="left";
+          carussel.nextSlide(event);
+          expect(carussel.goToSlide).toHaveBeenCalledWith(3);
+      });
+
+
+
+
+
+
 
 
 });
