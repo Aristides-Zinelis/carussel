@@ -2,6 +2,9 @@ body{
   height:100%;
   width: 100%;
 }
+a{
+  text-decoration: none;
+}
 
 .container{
   height: 230px;
@@ -52,4 +55,24 @@ body{
   background-color: #000;
   border-radius: 50%;
 
+}
+
+
+.chevs-wrapper{
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 900px;
+}
+.fa.fa-chevron-left{
+position: absolute;
+left: 0;
+top: 110px;
+z-index: 999;
+}
+.fa.fa-chevron-right{
+position: absolute;
+right: 0;
+top: 110px;
+z-index: 999;
 }

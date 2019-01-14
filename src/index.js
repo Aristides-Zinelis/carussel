@@ -1,4 +1,3 @@
-import {onInit, addHandlers} from './js/module';
+import {carussel} from './js/module';
 
-onInit();
-addHandlers();
+carussel.onInit();

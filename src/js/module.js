@@ -1,36 +1,65 @@
 import { config } from '../config/carussel.config';
 
+var carussel = {};
 
 var count = config.images.length;
 
-function onInit(){
+ carussel.onInit = function(){
   for(let i = 0 ; i < count; i++){
-    addImage(config.images[i]);
+    carussel.addImage(config.images[i]);
   }
+  carussel.addHandlers();
+  carussel.addChevrons();
 }
 
-function addHandlers(){
+ carussel.addHandlers = function(){
   for(let i = 0 ; i < count/3; i++){
-   addHandler(i);
+   carussel.addHandler(i);
    }
-  setFirsthandlerActive();
+  carussel.setFirsthandlerActive();
 }
 
-function addHandler(index){
+carussel.addChevrons = function(){
+carussel.addChevron("fa-chevron-left", "left");
+carussel.addChevron("fa-chevron-right", "right");
+}
+
+carussel.addChevron = function(className, id){
+  var wrapper = document.getElementById("chevs-wrapper"), chev;
+  chev = document.createElement("a");
+  chev.classList.add("fa", className);
+  chev.setAttribute("href", "#");
+  chev.setAttribute("id", id);
+  chev.addEventListener( 'click', function(event){carussel.nextSlide(event)});
+
+  wrapper.appendChild(chev);
+}
+
+let sl = 0;
+carussel.nextSlide = function(event){
+var target = event ? event.target : window.event.srcElement;
+target.id==="left" ? sl-- : sl++;
+if(sl>3){sl=0};
+if(sl<0){sl=3};
+carussel.goToSlide(sl)
+}
+
+
+ carussel.addHandler = function(index){
 	var ul = document.getElementById("handlers"), li, a;
 	li = document.createElement("li");
     a = document.createElement("a");
-	console.log(index);
-    a.addEventListener( 'click', function(){nextSlide(index)});
+    a.setAttribute("href", "#");
+    a.addEventListener( 'click', function(){carussel.goToSlide(index)});
     li.appendChild(a);
     ul.appendChild(li);
 }
 
-function setFirsthandlerActive(){
+ carussel.setFirsthandlerActive = function(){
     document.querySelectorAll(".handler-wrapper a")[0].classList.add("active");
 }
 
-function nextSlide(index){
+ carussel.goToSlide = function(index){
   var ul = document.getElementById("list");
   var hndler = document.querySelectorAll(".handler-wrapper a");
   ul.style.left = (-(ul.offsetWidth / 12) * index*3) +"px";
@@ -38,7 +67,7 @@ function nextSlide(index){
   hndler[index].classList.add("active");
 }
 
-function addImage(image){
+ carussel.addImage = function(image){
     var ul = document.getElementById("list");
     var li = document.createElement("li");
     var img = document.createElement("IMG");
@@ -47,4 +76,4 @@ function addImage(image){
     ul.appendChild(li);
 }
 
-export {onInit, addImage, addHandlers}
+export {carussel}
