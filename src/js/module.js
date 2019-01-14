@@ -10,15 +10,20 @@ function onInit(){
 }
 
 function addHandlers(){
-  var ul = document.getElementById("handlers"), li, a;
   for(let i = 0 ; i < count/3; i++){
-    li = document.createElement("li");
+   addHandler(i);
+   }
+  setFirsthandlerActive();
+}
+
+function addHandler(index){
+	var ul = document.getElementById("handlers"), li, a;
+	li = document.createElement("li");
     a = document.createElement("a");
-    a.addEventListener( 'click', function(){nextSlide(i)});
+	console.log(index);
+    a.addEventListener( 'click', function(){nextSlide(index)});
     li.appendChild(a);
     ul.appendChild(li);
-    }
-  setFirsthandlerActive();
 }
 
 function setFirsthandlerActive(){
